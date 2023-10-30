@@ -14,8 +14,8 @@ I have been using the Monthly Budget template of Google Sheets for months and de
 **Design:**
 While I haven't found out what kind of design that I should go with, below is a list of some Figma free design that I might just make a clone out of it. Huge thanks to these wonderful designers!
 
-[Ringku - Financial Web App and Mobile App | By Adrian Tra](https://www.figma.com/community/file/1158392328642074006/ringku-financial-web-app-and-mobile-app)
-[FInanceApp | By Kamran Ali](https://www.figma.com/community/file/884441339627646663)
+[Ringku - Financial Web App and Mobile App | By Adrian Tra](https://www.figma.com/community/file/1158392328642074006/ringku-financial-web-app-and-mobile-app) <br>
+[FInanceApp | By Kamran Ali](https://www.figma.com/community/file/884441339627646663) <br>
 [Financial App | By YingMing](https://www.figma.com/community/file/956788113953105380/financial-app)
 
 ## Features
