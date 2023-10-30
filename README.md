@@ -42,11 +42,10 @@ While I haven't found out what kind of design that I should go with, below is a 
 
 2. Run the following commands:
 
-  ```bash
-  cd themoneybuddy
-  npm install
-  npm run dev
-
+   ```bash
+   cd themoneybuddy
+   npm install
+   npm run dev
 
 ## License
 
