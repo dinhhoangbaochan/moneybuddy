@@ -32,6 +32,10 @@ While I haven't found out what kind of design that I should go with, below is a 
 - **Frontend:** VueJS / NuxtJS
 - **Backend:** loading....
 
+## Prerequisites
+
+Before you get started, make sure to have Node.js - v18.0.0 or newer installed on your machine, and that's all you need so far!
+
 ## Getting Started
 
 1. Fork this repository.
