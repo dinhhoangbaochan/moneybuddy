@@ -1,135 +1,75 @@
 <template>
   <div class="container mx-auto py-[6rem]">
     <h1 class="leading-2">Expense Tracker</h1>
-    <div class="input-group">
-      <div class="relative mt-2 rounded-md shadow-sm">
-        <div class="columns-4">
-          <div class="w-full">
-            <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Transaction Type</label>
-            <div class="mt-2">
-              <select name="" 
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300">
-                <option value="">Cash</option>
-                <option value="">Bank Wire</option>
-              </select>
-            </div>
-          </div>
+    <div class="flex flex-col md:flex-row">
+      <div class="w-[30%] pr-8">
+        <!-- Content for the first column -->
+        <form class="my-8" @submit.prevent>
+          <!-- Transaction Type -->
+          <label for="transactionType" class="block text-sm font-medium text-gray-700">Transaction Type</label>
+          <select id="transactionType" name="transactionType" v-model="transactionType" class="mt-1 border block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+              <option>Cash</option>
+              <option>Wire Transfers</option>
+          </select>
 
-          <div class="w-full">
-            <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Transaction Name</label>
-            <div class="mt-2">
-              <input type="text" name="last-name" id="last-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-          </div>
+          <!-- Transaction Name -->
+          <label for="transactionName" class="block text-sm font-medium text-gray-700 mt-4">Transaction Name</label>
+          <input type="text" v-model="transactionName" id="transactionName" name="transactionName" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
-          <div class="w-full">
-            <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Transaction Date</label>
-            <div class="mt-2">
-              <input type="text" name="last-name" id="last-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-          </div>
+          <!-- Transaction Date -->
+          <label for="transactionDate" class="block text-sm font-medium text-gray-700 mt-4">Transaction Date</label>
+          <input type="date" v-model="transactionDate" id="transactionDate" name="transactionDate" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
-          <div class="w-full">
-            <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Transaction Amount</label>
-            <div class="mt-2">
-              <input type="text" name="last-name" id="last-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
+          <!-- Transaction Amount -->
+          <label for="transactionAmount" class="block text-sm font-medium text-gray-700 mt-4">Transaction Amount</label>
+          <input type="text" v-model="transactionAmount" id="transactionAmount" name="transactionAmount" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+          <!-- Submit Button -->
+          <button type="submit"
+            v-on:click="handleSubmit"
+            class="mt-6 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Submit
+          </button>
+      </form>
+
+      </div>
+      <div class="w-[60%]">
+        <div class="my-8">
+          <!-- Repeat this section for each transaction -->
+          <div class="bg-white shadow-lg rounded-lg mb-6 overflow-hidden" v-for="item in transactionList">
+              <!-- Header - Optional, can be used for highlighting transaction type or date -->
+              <div class="bg-indigo-600 text-white text-lg font-semibold p-4">
+                  Transaction ID #{{ item.id }} - {{ item.name }}
+              </div>
+
+              <!-- Content -->
+              <div class="p-4 flex flex-col">
+                  <!-- Transaction Name -->
+                  <div class="mb-3">
+                      <span class="text-gray-500">Transaction Type: </span> 
+                      <span class="text-gray-700 font-medium">{{ item.type }}</span>
+                  </div>
+
+                  <!-- Transaction Date -->
+                  <div class="mb-3">
+                      <span class="text-gray-500">Date: </span> 
+                      <span class="text-gray-700 font-medium">{{ item.date }}</span>
+                  </div>
+
+                  <!-- Transaction Amount -->
+                  <div class="mb-3">
+                      <span class="text-gray-500">Amount: </span> 
+                      <span class="text-gray-700 font-medium">{{ '$' + item.amount }}</span>
+                  </div>
+              </div>
           </div>
+          <!-- Repeat End -->
+
+          
         </div>
-      </div>
-    </div>
 
-    <!-- List -->
-    <ul role="list" class="divide-y divide-gray-100">
-  <li class="flex justify-between gap-x-6 py-5">
-    <div class="flex min-w-0 gap-x-4">
-      <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-      <div class="min-w-0 flex-auto">
-        <p class="text-sm font-semibold leading-6 text-gray-900">Leslie Alexander</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">leslie.alexander@example.com</p>
       </div>
     </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-      <p class="text-sm leading-6 text-gray-900">Co-Founder / CEO</p>
-      <p class="mt-1 text-xs leading-5 text-gray-500">Last seen <time datetime="2023-01-23T13:23Z">3h ago</time></p>
-    </div>
-  </li>
-  <li class="flex justify-between gap-x-6 py-5">
-    <div class="flex min-w-0 gap-x-4">
-      <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-      <div class="min-w-0 flex-auto">
-        <p class="text-sm font-semibold leading-6 text-gray-900">Michael Foster</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">michael.foster@example.com</p>
-      </div>
-    </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-      <p class="text-sm leading-6 text-gray-900">Co-Founder / CTO</p>
-      <p class="mt-1 text-xs leading-5 text-gray-500">Last seen <time datetime="2023-01-23T13:23Z">3h ago</time></p>
-    </div>
-  </li>
-  <li class="flex justify-between gap-x-6 py-5">
-    <div class="flex min-w-0 gap-x-4">
-      <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-      <div class="min-w-0 flex-auto">
-        <p class="text-sm font-semibold leading-6 text-gray-900">Dries Vincent</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">dries.vincent@example.com</p>
-      </div>
-    </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-      <p class="text-sm leading-6 text-gray-900">Business Relations</p>
-      <div class="mt-1 flex items-center gap-x-1.5">
-        <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-          <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-        </div>
-        <p class="text-xs leading-5 text-gray-500">Online</p>
-      </div>
-    </div>
-  </li>
-  <li class="flex justify-between gap-x-6 py-5">
-    <div class="flex min-w-0 gap-x-4">
-      <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-      <div class="min-w-0 flex-auto">
-        <p class="text-sm font-semibold leading-6 text-gray-900">Lindsay Walton</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">lindsay.walton@example.com</p>
-      </div>
-    </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-      <p class="text-sm leading-6 text-gray-900">Front-end Developer</p>
-      <p class="mt-1 text-xs leading-5 text-gray-500">Last seen <time datetime="2023-01-23T13:23Z">3h ago</time></p>
-    </div>
-  </li>
-  <li class="flex justify-between gap-x-6 py-5">
-    <div class="flex min-w-0 gap-x-4">
-      <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-      <div class="min-w-0 flex-auto">
-        <p class="text-sm font-semibold leading-6 text-gray-900">Courtney Henry</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">courtney.henry@example.com</p>
-      </div>
-    </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-      <p class="text-sm leading-6 text-gray-900">Designer</p>
-      <p class="mt-1 text-xs leading-5 text-gray-500">Last seen <time datetime="2023-01-23T13:23Z">3h ago</time></p>
-    </div>
-  </li>
-  <li class="flex justify-between gap-x-6 py-5">
-    <div class="flex min-w-0 gap-x-4">
-      <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-      <div class="min-w-0 flex-auto">
-        <p class="text-sm font-semibold leading-6 text-gray-900">Tom Cook</p>
-        <p class="mt-1 truncate text-xs leading-5 text-gray-500">tom.cook@example.com</p>
-      </div>
-    </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-      <p class="text-sm leading-6 text-gray-900">Director of Product</p>
-      <div class="mt-1 flex items-center gap-x-1.5">
-        <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-          <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-        </div>
-        <p class="text-xs leading-5 text-gray-500">Online</p>
-      </div>
-    </div>
-  </li>
-</ul>
 
   </div>
 </template>
@@ -137,5 +77,30 @@
 <script setup>
 const client = useSupabaseClient()
 const { data: people } = await useAsyncData('people', async () => client.from('people').select('*').order('created_at'), { transform: result => result.data }); 
-console.log('heere: ', people);
+
+const transactionName = ref();
+const transactionType = ref();
+const transactionDate = ref();
+const transactionAmount = ref();
+
+const transactionList = ref([]);
+
+const handleSubmit = () => {
+  const transactionItem = {
+    id: Math.ceil(Math.random() * 10000000000),
+    type: transactionType.value,
+    name: transactionName.value,
+    date: transactionDate.value,
+    amount: transactionAmount.value
+  };
+
+  transactionList.value.push(transactionItem);
+
+  transactionType.value = '';
+  transactionName.value = '';
+  transactionDate.value = '';
+  transactionAmount.value = '';
+
+  console.log(transactionItem);
+}
 </script>
