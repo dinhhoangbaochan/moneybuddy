@@ -31,9 +31,7 @@
         <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
           View Transaction Detail
         </button>
-        <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
-          Edit Transaction
-        </button>
+        <TransactionEdit :itemIndex="itemIndex" />
         <button class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
           Delete Transaction
         </button>
@@ -41,7 +39,8 @@
 </template>
 
 <script setup>
-defineProps({
-  itemInfo: Object
+const props = defineProps({
+  itemInfo: Object,
+  itemIndex: Number
 })
 </script>

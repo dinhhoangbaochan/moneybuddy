@@ -2,7 +2,9 @@
   <form class="my-8" @submit.prevent>
     <!-- Transaction Type -->
     <label for="transactionType" class="block text-sm font-medium text-gray-700">Transaction Type</label>
-    <select id="transactionType" name="transactionType" v-model="transactionType" class="mt-1 border block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+    <select id="transactionType" 
+    name="transactionType" v-model="transactionType" 
+    class="mt-1 border block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
         <option>Cash</option>
         <option>Wire Transfers</option>
     </select>
@@ -32,10 +34,11 @@
 import { useTransactionState } from '@/stores/transactionState';
 
 const transactionState = useTransactionState();
-const transactionName = ref();
-const transactionType = ref();
-const transactionDate = ref();
-const transactionAmount = ref();
+
+const transactionName = (transactionState.getSelectedTransaction.name) ? transactionState.getSelectedTransaction.name : ref();
+const transactionType = (transactionState.getSelectedTransaction.type) ? transactionState.getSelectedTransaction.type : ref();
+const transactionDate = (transactionState.getSelectedTransaction.date) ? transactionState.getSelectedTransaction.date : ref();
+const transactionAmount = (transactionState.getSelectedTransaction.amount) ? transactionState.getSelectedTransaction.amount : ref();
 
 
 const handleSubmit = () => {
@@ -47,15 +50,11 @@ const handleSubmit = () => {
     amount: transactionAmount.value
   };
 
-  // transactionList.value.push(transactionItem);
   transactionState.transactionList.push(transactionItem);
 
   transactionType.value = '';
   transactionName.value = '';
   transactionDate.value = '';
   transactionAmount.value = '';
-
-  console.log(transactionItem);
-  console.log(transactionState.getTransactionList);
 }
 </script>
